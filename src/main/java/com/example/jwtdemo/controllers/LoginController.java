@@ -4,6 +4,8 @@ import com.example.jwtdemo.models.BaseResp;
 import com.example.jwtdemo.jwt.JWTUtils;
 import com.example.jwtdemo.entity.User;
 import com.example.jwtdemo.jwt.JwtTokenIgnore;
+import com.example.jwtdemo.models.ErrorCode;
+import com.example.jwtdemo.utils.BaseRespBody;
 import com.example.jwtdemo.utils.RequestUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,18 +36,14 @@ public class LoginController {
     }
 
     @JwtTokenIgnore
-    @GetMapping("/string")
-    public String string() {
-        return "ok";
+    @BaseRespBody
+    @GetMapping("/get-user")
+    public User getUser() {
+        User user = new User();
+        user.id = "fake-id";
+        user.phone = "fake-phone";
+        return user;
     }
-
-//    @JwtTokenIgnore
-//    @GetMapping("/string")
-//    public User string() {
-//        User user = new User();
-//        user.id = RequestUtils.getUserId();
-//        return user;
-//    }
 
 
 }
