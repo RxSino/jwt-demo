@@ -4,13 +4,16 @@ import com.example.jwtdemo.models.BaseResp;
 import com.example.jwtdemo.jwt.JWTUtils;
 import com.example.jwtdemo.entity.User;
 import com.example.jwtdemo.jwt.JwtTokenIgnore;
+import com.example.jwtdemo.utils.RequestUtils;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.UUID;
 
-@RestController("/login")
+@RestController
+@RequestMapping("/login")
 public class LoginController {
 
     @JwtTokenIgnore
@@ -24,11 +27,9 @@ public class LoginController {
     }
 
     @GetMapping("/test")
-    public BaseResp<?> test(@RequestParam("phone") String phone) {
+    public BaseResp<?> test() {
         User user = new User();
-        user.id = UUID.randomUUID().toString();
-        user.phone = phone;
-        user.token = JWTUtils.create(user.id);
+        user.id = RequestUtils.getUserId();
         return BaseResp.success(user);
     }
 
@@ -37,5 +38,14 @@ public class LoginController {
     public String string() {
         return "ok";
     }
+
+//    @JwtTokenIgnore
+//    @GetMapping("/string")
+//    public User string() {
+//        User user = new User();
+//        user.id = RequestUtils.getUserId();
+//        return user;
+//    }
+
 
 }

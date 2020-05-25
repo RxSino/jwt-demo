@@ -7,10 +7,6 @@ public class BaseResp<T> {
     public String errorCode;
     public boolean success;
 
-    public boolean isNull() {
-        return data == null;
-    }
-
     public BaseResp() {
     }
 
